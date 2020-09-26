@@ -9,13 +9,13 @@ export class MailerService {
   private transporter: any;
   constructor(private readonly _configService: ConfigService) {
     this.transporter = _mailer.createTransport({
-      host: 'smtp.sendgrid.net',
+      host: 'smtp-relay.sendinblue.com', // 'smtp.sendgrid.net',
       port: 587,
       secure: false,
       //service: this._configService.get(Configuration.MAILER_SERVICE),
       auth: {
-        user: this._configService.get(Configuration.USER_MAIL),
-        pass: this._configService.get(Configuration.PASSWORD_MAIL),
+        user: 'transbustillo@gmail.com', //this._configService.get(Configuration.USER_MAIL),
+        pass: 'hKFwYV6anUySc3Q8', //this._configService.get(Configuration.PASSWORD_MAIL),
       },
       tls: {
         rejectUnauthorized: false,
@@ -25,7 +25,8 @@ export class MailerService {
   async sendPDF(mail: string, pdf: Buffer) {
     try {
       const sent = await this.transporter.sendMail({
-        from: 'transbustillo@outlook.com',
+        //from: 'transbustillo@outlook.com',
+        from: 'transbustillo@gmail.com',
         to: mail,
         subject: 'Codigo de Verificacion',
         body: 'email de prueba',
@@ -46,7 +47,8 @@ export class MailerService {
   ): Promise<any> {
     try {
       const sent = await this.transporter.sendMail({
-        from: 'transbustillo@outlook.com',
+        //from: 'transbustillo@outlook.com',
+        from: 'transbustillo@gmail.com',
         to: email,
         subject: 'Codigo de Verificacion',
         body: msg,
@@ -61,8 +63,8 @@ export class MailerService {
   }
   async sendMailTickets(data: any[], email: string): Promise<any> {
     let row = ``;
-    console.log('data viaje.........',data);
-    
+    console.log('data viaje.........', data);
+
     data.forEach((item) => {
       row += `<div class="row">
       <article class="card">
@@ -114,8 +116,8 @@ export class MailerService {
       </article>
     </div>`;
     });
-    console.log('row....................',row);
-    
+    console.log('row....................', row);
+
     const html = `<!DOCTYPE html>
      <html lang="es">
        <head>
@@ -341,13 +343,14 @@ export class MailerService {
       //   });
       // });
       let sent = await this.transporter.sendMail({
-        from: 'transbustillo@outlook.com',
+        //from: 'transbustillo@outlook.com',
+        from: 'transbustillo@gmail.com',
         to: email,
         subject: 'Pasajes',
-        html:html,
+        html: html,
         body:
           'Estos son tus pasajes para tu viaje recuerda imprimirlos y llevarlos contigo',
-       // attachments: [{ filename: 'mis_pasajes.pdf', content: pdfBuffer }],
+        // attachments: [{ filename: 'mis_pasajes.pdf', content: pdfBuffer }],
       });
       return sent;
     } catch (error) {

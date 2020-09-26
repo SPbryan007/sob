@@ -1,7 +1,7 @@
 import {MigrationInterface, QueryRunner} from "typeorm";
 
-export class sob21600629983513 implements MigrationInterface {
-    name = 'sob21600629983513'
+export class sob1601090203443 implements MigrationInterface {
+    name = 'sob1601090203443'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query("CREATE TABLE `branch` (`idBran` varchar(36) NOT NULL, `name` varchar(100) NOT NULL, `address` varchar(40) NOT NULL, `city` varchar(40) NOT NULL, `telephone` varchar(15) NOT NULL, `created_at` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), `updated_at` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), `companyIdCom` varchar(36) NULL, PRIMARY KEY (`idBran`)) ENGINE=InnoDB", undefined);
@@ -59,11 +59,11 @@ export class sob21600629983513 implements MigrationInterface {
         await queryRunner.query("ALTER TABLE `Booking_online` ADD CONSTRAINT `FK_7eefe0c9ccda410da05397500d4` FOREIGN KEY (`bookingIdBooking`) REFERENCES `Booking`(`idBooking`) ON DELETE NO ACTION ON UPDATE NO ACTION", undefined);
         await queryRunner.query("ALTER TABLE `Booking_online` ADD CONSTRAINT `FK_edcd4087bcbab8d0b4be94e628c` FOREIGN KEY (`userCustomerIdUser`) REFERENCES `UserCustomer`(`idUser`) ON DELETE NO ACTION ON UPDATE NO ACTION", undefined);
         await queryRunner.query("ALTER TABLE `Tripulation` ADD CONSTRAINT `FK_673e21295464ed6462213941e52` FOREIGN KEY (`driverIdDriver`) REFERENCES `Driver`(`idDriver`) ON DELETE NO ACTION ON UPDATE NO ACTION", undefined);
-        await queryRunner.query("CREATE TABLE `sob2`.`query-result-cache` (`id` int NOT NULL AUTO_INCREMENT, `identifier` varchar(255) NULL, `time` bigint NOT NULL, `duration` int NOT NULL, `query` text NOT NULL, `result` text NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB", undefined);
+        await queryRunner.query("CREATE TABLE `sql10367415`.`query-result-cache` (`id` int NOT NULL AUTO_INCREMENT, `identifier` varchar(255) NULL, `time` bigint NOT NULL, `duration` int NOT NULL, `query` text NOT NULL, `result` text NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB", undefined);
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query("DROP TABLE `sob2`.`query-result-cache`", undefined);
+        await queryRunner.query("DROP TABLE `sql10367415`.`query-result-cache`", undefined);
         await queryRunner.query("ALTER TABLE `Tripulation` DROP FOREIGN KEY `FK_673e21295464ed6462213941e52`", undefined);
         await queryRunner.query("ALTER TABLE `Booking_online` DROP FOREIGN KEY `FK_edcd4087bcbab8d0b4be94e628c`", undefined);
         await queryRunner.query("ALTER TABLE `Booking_online` DROP FOREIGN KEY `FK_7eefe0c9ccda410da05397500d4`", undefined);

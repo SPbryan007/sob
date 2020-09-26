@@ -73,6 +73,8 @@ export class TripRepository extends Repository<Trip> {
     try {
       await trip.save();
     } catch (error) {
+      console.log('HA OCURRIDO UN HERROOOOOOOOOOOR......', error);
+
       throw new InternalServerErrorException(
         'Something went wrong trying to save a new trip',
       );

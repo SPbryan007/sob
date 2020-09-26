@@ -1,10 +1,10 @@
 {
   "type": "mysql",
-  "username": "rRaMX1EWMT",
+  "username": "sob_user",
   "password": "xYT3hUJW1t",
-  "host": "remotemysql.com",
+  "host": "db4free.net",
   "port": 3306,
-  "database": "rRaMX1EWMT",
+  "database": "sob_database",
   "entities": ["src/**/**/*.entity{.ts,.js}"],
   "migrations": ["src/database/migrations/*{.ts,.js}"],
   "cache": true,

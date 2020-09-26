@@ -90,7 +90,10 @@ export class AuthService {
       'Su codigo de verificacion es / Your verification code is ',
     );
     if (!sent)
-      throw new InternalServerErrorException('no se puedo enviar el email');
+      throw new InternalServerErrorException(
+        'no se pudo enviar el email',
+        sent,
+      );
     return generated.secret;
   }
   /**

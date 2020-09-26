@@ -122,6 +122,7 @@ export class TripController {
     @Body() data: SearchTripsDto,
     @Res() res,
   ): Promise<void> {
+    //console.log('HOLAAAAA HEMOS ENTRADO');
     const trips = await this._tripService.search_trips(data);
     console.log('search____', trips);
 

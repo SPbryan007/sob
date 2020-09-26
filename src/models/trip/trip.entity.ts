@@ -42,10 +42,10 @@ export class Trip extends BaseEntity {
   @Column({ type: 'double', nullable: false })
   min_price: number;
 
-  @Column({ type: 'double', nullable: false })
+  @Column({ type: 'double', nullable: true })
   max_price: number;
 
-  @Column({ type: 'double', nullable: false })
+  @Column({ type: 'double', nullable: true })
   price_online: number;
 
   @Column({ type: 'varchar', nullable: false })
