@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>App getway</title>
+  </head>
+  <body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+    <script>
+      const socket = io('http://localhost:3000');
+
+      socket.on('connection', (data) => {
+        console.log(data);
+      });
+      socket.emit('join', {
+        user: 'test@gmail.com',
+      });
+      socket.emit('on_selected', {
+        id_trip: 'a5edae3d-887a-4a7c-a6db-68cb9a880c51',
+        column: 0,
+        row: 0,
+        nro_seat: '1',
+        status: 'ocupado',
+      });
+      socket.on('seat_selected', (data) => {
+        console.log(data);
+      });
+      socket.on('payment_process', (data) => {
+        console.log(data);
+      });
+    </script>
+  </body>
+</html>
