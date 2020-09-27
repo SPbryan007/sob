@@ -171,8 +171,8 @@ export class PaymentMethodController {
         payment_method: 'paypal',
       },
       redirect_urls: {
-        return_url: `http://192.168.0.14:3000/api/payment/success/${user.email}/`,
-        cancel_url: `http://192.168.0.14:3000/api/payment/cancel/${user.email}/`,
+        return_url: `http://ec2-3-82-232-209.compute-1.amazonaws.com:3000/api/payment/success/${user.email}/`,
+        cancel_url: `http://ec2-3-82-232-209.compute-1.amazonaws.com:3000/api/payment/cancel/${user.email}/`,
       },
       transactions: [
         {
