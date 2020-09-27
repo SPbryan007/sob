@@ -27,7 +27,7 @@ export class Trip extends BaseEntity {
   @Column({ type: 'date', nullable: false })
   departure_date: string;
 
-  @Column({ type: 'time', nullable: false })
+  @Column({ type: 'time', nullable: true })
   departure_time: string;
 
   @Column({ type: 'date', nullable: true })
@@ -39,13 +39,13 @@ export class Trip extends BaseEntity {
   @Column({ type: 'varchar', nullable: false, default: TravelStatus.ON_HOLD })
   status: TravelStatus;
 
-  @Column({ type: 'double', nullable: false })
+  @Column({ type: 'double', nullable: true })
   min_price: number;
 
   @Column({ type: 'double', nullable: true })
   max_price: number;
 
-  @Column({ type: 'double', nullable: true })
+  @Column({ type: 'double', nullable: false })
   price_online: number;
 
   @Column({ type: 'varchar', nullable: false })

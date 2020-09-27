@@ -20,7 +20,7 @@ export class Customer extends BaseEntity {
   @PrimaryColumn()
   idCustomer: string;
 
-  @Column({ type: 'varchar', length: 20 })
+  @Column({ type: 'varchar', length: 20, nullable: true })
   customer_type: CustomerType;
 
   @Column({ type: 'varchar', length: 100, nullable: true })
@@ -29,14 +29,11 @@ export class Customer extends BaseEntity {
   @Column({ type: 'varchar', length: 20, nullable: true })
   phone: string;
 
-  @OneToOne(type => Person)
+  @OneToOne((type) => Person)
   @JoinColumn({ name: 'idCustomer' })
   person: Person;
 
-  @OneToMany(
-    type => Sale,
-    sale => sale.customer,
-  )
+  @OneToMany((type) => Sale, (sale) => sale.customer)
   sale: Sale[];
 
   @CreateDateColumn({

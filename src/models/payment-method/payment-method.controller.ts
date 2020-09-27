@@ -26,13 +26,12 @@ import { BusModule } from 'src/models/bus/bus.module';
 export class PaymentMethodController {
   constructor(
     private _paymentMethodService: PaymentMethodService,
-    private _getway: AppGateway
+    private _getway: AppGateway,
   ) {}
   @Get('/cancel')
   public async cancel_pay(@Req() req, @Res() res) {
     res.send('pay has been canceled');
-   // console.log('holaaaaaa',this._BusModule.plantilla);
-    
+    // console.log('holaaaaaa',this._BusModule.plantilla);
   }
   /**
    * async getById
@@ -93,9 +92,9 @@ export class PaymentMethodController {
     @Param('user') user: string,
   ) {
     const self = this._getway;
-    
+
     let paymentId = req.query.paymentId; // recuperamos el id del pago
-    let payerId = { payer_id: req.query.PayerID };// paypal
+    let payerId = { payer_id: req.query.PayerID }; // paypal
     console.log('aaaaaaaaaaaaaa', paymentId);
     console.log('aaaaaaaaaaaaaa', payerId);
 
@@ -141,17 +140,17 @@ export class PaymentMethodController {
     return true;
   }
   /**
-   * provider 
+   * provider
    */
   @Post('/paypal/pay')
-  @UseGuards(AuthGuard()) 
+  @UseGuards(AuthGuard())
   public async pay(
     @Body() data: MakeSaleDto,
     @Res() res,
-    @CurrentUser() user: CurrentUserDto, 
+    @CurrentUser() user: CurrentUserDto,
   ): Promise<void> {
     console.log('ESTAMOS EN PAYPAL BLABLABLABLABLABLABALBALBALBALA');
-    
+
     let items = [];
     let total = 0;
     data.ticket.forEach((item) => {
@@ -172,8 +171,8 @@ export class PaymentMethodController {
         payment_method: 'paypal',
       },
       redirect_urls: {
-        return_url: `http://192.168.0.13:3000/api/payment/success/${user.email}/`,
-        cancel_url: `http://192.168.0.13:3000/api/payment/cancel/${user.email}/`,
+        return_url: `http://192.168.0.14:3000/api/payment/success/${user.email}/`,
+        cancel_url: `http://192.168.0.14:3000/api/payment/cancel/${user.email}/`,
       },
       transactions: [
         {

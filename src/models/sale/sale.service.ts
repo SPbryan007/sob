@@ -92,11 +92,9 @@ export class SaleService {
     data: MakeSaleDto,
     user: CurrentUserDto,
   ): Promise<any> {
-console.log('ESTOS SON LOS DATOS DEL TICKET..................',data);
-console.log('ESTOS SON LOS DATOS DEL USUARIO..................',user);
-data.ticket.map((e)=>{
-
-})
+    console.log('ESTOS SON LOS DATOS DEL TICKET..................', data);
+    console.log('ESTOS SON LOS DATOS DEL USUARIO..................', user);
+    data.ticket.map((e) => {});
 
     const payment = await getConnection()
       .getRepository(PaymentMethod)
@@ -107,13 +105,13 @@ data.ticket.map((e)=>{
       );
     }
     let results = [];
-    let tickets : Ticket[] = [];
+    let tickets: Ticket[] = [];
     // save
     let result: Trip;
     await getManager().transaction(async (transactionalEntityManager) => {
       const customer = await transactionalEntityManager
         .getCustomRepository(CustomerRepository)
-        .createNew(data.customer);
+        .createNew(data.customer, user.email);
 
       tickets = await transactionalEntityManager
         .getCustomRepository(TicketRepository)
@@ -135,7 +133,7 @@ data.ticket.map((e)=>{
         .where('trip.idTrip = :id', { id: data.ticket[0].trip })
         .getOne();
     });
-    console.log('11111111111111111111111111111111111111',data);
+    console.log('11111111111111111111111111111111111111', data);
 
     // const query = await getConnection()
     //   .getRepository(Trip)
@@ -148,7 +146,7 @@ data.ticket.map((e)=>{
     //   .andWhere('ticket.idTicket = :id',{id:tickets[0].idTicket })
     //   .getMany();
 
-      const ticketsData = await getConnection()
+    const ticketsData = await getConnection()
       .getRepository(Ticket)
       .createQueryBuilder('ticket')
       .innerJoinAndSelect('ticket.trip', 'trip')
@@ -156,10 +154,10 @@ data.ticket.map((e)=>{
       .innerJoinAndSelect('trip.destination', 'destination')
       .innerJoinAndSelect('ticket.passenger', 'passenger')
       .where('ticket.idTrip = :id', { id: data.ticket[0].trip })
-      .andWhere('ticket.idTicket = :uid',{uid:tickets[0].idTicket })
+      .andWhere('ticket.idTicket = :uid', { uid: tickets[0].idTicket })
       .getMany();
 
-    const datas = tickets.map((item)=>{
+    const datas = tickets.map((item) => {
       return {
         seat: item.nro_seat,
         route: `${result.origin.city} - ${result.destination.city}`,
@@ -170,14 +168,14 @@ data.ticket.map((e)=>{
         carril: item.trip.carril,
         passenger: `${item.passenger.name} - ${item.passenger.lastname}`,
         document: item.passenger.document,
-      }
-    })
+      };
+    });
     // data.ticket.forEach((item) => {
     //   query.andWhere('passenger.document = :doc', {
     //     doc: item.passenger.document,
     //   });
     // });
-    const dataToSend = ticketsData.map((item)=>{
+    const dataToSend = ticketsData.map((item) => {
       return {
         seat: item.nro_seat,
         route: `${item.trip.origin.city} - ${item.trip.destination.city}`,
@@ -188,10 +186,10 @@ data.ticket.map((e)=>{
         carril: item.trip.carril,
         passenger: `${item.passenger.name} - ${item.passenger.lastname}`,
         document: item.passenger.document,
-      }
+      };
     });
     // const ticketstoSend = await query.getOne();
-    
+
     // const ticketsDatas = ticketstoSend.ticket.map((item) => {
     //   let data = {
     //     seat: item.nro_seat,
@@ -206,16 +204,12 @@ data.ticket.map((e)=>{
     //   };
     //   return data;
     // });
-    console.log('2222222222222222222222222222222222222222222',dataToSend);
+    console.log('2222222222222222222222222222222222222222222', dataToSend);
 
-    console.log('333333333333333333333333333333333333333333',ticketsData);
+    console.log('333333333333333333333333333333333333333333', ticketsData);
 
-    console.log('4444444444444444444444444444444444444444444',datas);
-    
+    console.log('4444444444444444444444444444444444444444444', datas);
 
-    
-    
-   
     // const html = await ejs.renderFile('../../ticket.ejs', {
     //   ticket: ticketsData,
     // });

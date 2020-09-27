@@ -47,11 +47,11 @@ export class SaleRepository extends Repository<Sale> {
   async createNewSaleOnline(
     customer: Customer,
     _payment: PaymentMethod,
-    current : CurrentUserDto,
+    current: CurrentUserDto,
   ): Promise<Sale> {
     let user;
-    console.log('OOOOOOOOOOOOOOOOOOOOOOOOOOOOOO',current);
-    
+    console.log('OOOOOOOOOOOOOOOOOOOOOOOOOOOOOO', current);
+
     if (current) {
       user = await getConnection()
         .getRepository(UserCustomer)
@@ -61,16 +61,18 @@ export class SaleRepository extends Repository<Sale> {
     sale.payment_method = _payment;
     sale.customer = customer;
     sale.type_sale = SaleType.ONLINE;
-    console.log('HOLA MUNDO HOLA MUNOD....................',user);
-    
+    console.log('HOLA MUNDO HOLA MUNOD....................', user);
+
     try {
       const saved_sale = await sale.save();
       const sale_online = new SaleOnline();
       sale_online.sale = saved_sale;
-      sale_online.user = user;//current ? user : null;
+      sale_online.user = user; //current ? user : null;
       await sale_online.save();
       return saved_sale;
     } catch (error) {
+      console.log('ERROR EN SALE REPOSITORY...', error);
+
       throw new InternalServerErrorException(
         `Something went wrong trying to save a new Sale cash`,
       );

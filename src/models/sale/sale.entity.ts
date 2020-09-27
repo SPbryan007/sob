@@ -20,28 +20,19 @@ export class Sale extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   idSale: string;
 
-  @Column({ type: 'double', nullable: false })
+  @Column({ type: 'double', nullable: true })
   total_sale: number;
 
   @Column({ type: 'varchar', length: 10, nullable: false })
   type_sale: SaleType;
 
-  @ManyToOne(
-    type => Customer,
-    c => c.sale,
-  )
+  @ManyToOne((type) => Customer, (c) => c.sale)
   customer: Customer;
 
-  @OneToMany(
-    type => SaleDetail,
-    c => c.sale,
-  )
+  @OneToMany((type) => SaleDetail, (c) => c.sale)
   sale_detail: SaleDetail[];
 
-  @ManyToOne(
-    type => PaymentMethod,
-    pm => pm.sale,
-  )
+  @ManyToOne((type) => PaymentMethod, (pm) => pm.sale)
   payment_method: PaymentMethod;
 
   @CreateDateColumn({ type: 'timestamp', name: 'created_at' })
